@@ -37,8 +37,7 @@ class UsuarioController {
         try {
             const { codigo, nome, nascimento, foto } = request.body
             
-            const validacao = validarDados({ codigo, nome, nascimento, foto })
-            
+            const validacao = validarDados({ codigo, nome, nascimento })
             if(validacao !== true)
                 throw new Error(validacao)
 
@@ -46,7 +45,8 @@ class UsuarioController {
 
             return response.json({
                 dados,
-                error: false
+                error: false,
+                message: 'Usuário salvo com sucesso.'
             })
         } catch(e) {
             return response.status(400).json({
@@ -60,7 +60,7 @@ class UsuarioController {
             const { id } = request.params
             const { codigo, nome, nascimento, foto } = request.body
 
-            const validacao = validarDados({ codigo, nome, nascimento, foto })
+            const validacao = validarDados({ codigo, nome, nascimento })
             
             if(validacao !== true)
             throw new Error(validacao)
@@ -69,7 +69,8 @@ class UsuarioController {
 
             return response.json({
                 dados,
-                error: false
+                error: false,
+                message: 'Usuário alterado com sucesso.'
             })
         } catch(e) {
             return response.status(400).json({
@@ -87,7 +88,8 @@ class UsuarioController {
 
             return response.json({
                 dados,
-                error: false
+                error: false,
+                message: 'Usuário excluído com sucesso.'
             })
             
         } catch(e) {
