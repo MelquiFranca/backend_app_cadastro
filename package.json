@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
-    "dev": "npx nodemon src/index.mjs",
+    "dev": "npx nodemon src/index.js",
     "test": "npx mocha"
   },
   "keywords": [],

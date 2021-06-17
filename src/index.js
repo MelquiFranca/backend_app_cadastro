@@ -1,6 +1,6 @@
-import express from 'express'
-import cors from 'cors'
-import rotas from './routes.js'
+const express = require('express')
+const cors = require('cors')
+const rotas = require('./routes.js')
 
 const app = express()
 
