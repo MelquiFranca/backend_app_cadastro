@@ -9,14 +9,17 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       codigo: {
+        allowNull: false,
         type: Sequelize.INTEGER,
         unique: true,
       },
       nome: {
+        allowNull: false,
         type: Sequelize.STRING,
         unique: true,
       },
       nascimento: {
+        allowNull: false,
         type: Sequelize.DATE
       },
       foto: {
