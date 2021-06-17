@@ -13,7 +13,8 @@ module.exports = {
         unique: true,
       },
       nome: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        unique: true,
       },
       nascimento: {
         type: Sequelize.DATE
