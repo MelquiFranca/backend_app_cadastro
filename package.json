@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
+    "install-database": "cd src/database/ && npx sequelize-cli db:create && npx sequelize-cli db:migrate",
     "dev": "npx nodemon src/index.js",
     "test": "npx mocha"
   },
