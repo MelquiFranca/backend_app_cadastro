@@ -35,13 +35,14 @@ class UsuarioController {
     }
     static async salvar(request, response) {
         try {
-            const { codigo, nome, nascimento, foto } = request.body
+            const { codigo, nome, nascimento } = request.body
             
             const validacao = validarDados({ codigo, nome, nascimento })
             if(validacao !== true)
                 throw new Error(validacao)
 
-            const dados = await UsuarioService.salvar({ codigo, nome, nascimento, foto })
+            const nomeFoto = `${codigo}.jpg`
+            const dados = await UsuarioService.salvar({ codigo, nome, nascimento, foto: nomeFoto })
 
             return response.json({
                 dados,
@@ -63,9 +64,10 @@ class UsuarioController {
             const validacao = validarDados({ codigo, nome, nascimento })
             
             if(validacao !== true)
-            throw new Error(validacao)
+                throw new Error(validacao)
         
-            const dados = await UsuarioService.alterar({ id, codigo, nome, nascimento, foto })
+            const nomeFoto = `${codigo}.jpg`
+            const dados = await UsuarioService.alterar({ id, codigo, nome, nascimento, foto: nomeFoto })
 
             return response.json({
                 dados,
@@ -73,6 +75,7 @@ class UsuarioController {
                 message: 'Usuário alterado com sucesso.'
             })
         } catch(e) {
+            
             return response.status(400).json({
                 message: e.message,
                 error: true
@@ -81,9 +84,9 @@ class UsuarioController {
 
     }
     static async excluir(request, response) {
-        const { id } = request.params
-
+        
         try {
+            const { id } = request.params            
             const dados = await UsuarioService.excluir({ id })
 
             return response.json({

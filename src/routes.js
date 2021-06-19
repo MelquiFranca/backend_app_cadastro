@@ -1,5 +1,4 @@
 const { Router } = require('express')
-const path = require('path')
 const multer = require('multer')
 const UsuarioController = require('./controller/usuarioController.js')
 
@@ -8,7 +7,7 @@ const rotas = Router()
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         const { codigo } = req.body
-        file.originalname = `${codigo}${path.extname(file.originalname)}`
+        file.originalname = `${codigo}.jpg`
         cb(null, "uploads/")
     },
     filename: (req, file, cb) => {        

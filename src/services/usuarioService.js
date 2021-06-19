@@ -1,4 +1,7 @@
 const { Usuario } = require('../database/models/index.js')
+const fs = require('fs')
+const path = require('path')
+
 class UsuarioService {    
     static async listar() {
         const usuarios = await Usuario.findAll()
@@ -28,6 +31,13 @@ class UsuarioService {
     }
     static async alterar({ id, codigo, nome, nascimento, foto=null }) {
        try {
+            const dadosUsuario = await UsuarioService.selecionar({id})
+
+            if(dadosUsuario.codigo != codigo) {
+                if(fs.existsSync(path.resolve(__dirname, '..', '..', 'uploads',`${dadosUsuario.codigo}.jpg`)))
+                    fs.rmSync(path.resolve(__dirname, '..', '..', 'uploads',`${dadosUsuario.codigo}.jpg`))
+            }
+            
             const usuario = await Usuario.update({
                     codigo, 
                     nome,
@@ -47,7 +57,13 @@ class UsuarioService {
     }
     static async excluir({ id }) {
         try {
+            
+            const dadosUsuario = await UsuarioService.selecionar({id})
+            if(fs.existsSync(path.resolve(__dirname, '..', '..', 'uploads',`${dadosUsuario.codigo}.jpg`)))
+                fs.rmSync(path.resolve(__dirname, '..', '..', 'uploads',`${dadosUsuario.codigo}.jpg`))
+
             const usuario = await Usuario.destroy({where: {id}})
+            
             return usuario
         } catch(e) {
             throw new Error(e.message)
